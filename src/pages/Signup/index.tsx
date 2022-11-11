@@ -6,7 +6,7 @@ type Props = {}
 const Signup = (props: Props) => {
     return (
         <div className="main-signin">
-            <div className="main-signin-content">
+            <div className="main-signin-content-login">
                 <h2 className="main-signin-content__title-welcome">
                     Welcome To TripFinder
                 </h2>
