@@ -27,8 +27,7 @@ const MainLayout = (props: Props) => {
                 <Header>
                     <HeaderMain />
                 </Header>
-                <Content><Outlet /></Content>
-                <Footer>Footer</Footer>
+                <Content className='p-6 bg-[#031b31]'><Outlet /></Content>
             </Layout>
         </Layout>
     )

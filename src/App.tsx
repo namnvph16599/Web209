@@ -12,6 +12,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Manage/Dashboard";
 import Signup from "./pages/Signup";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 
 const config = {
   apiKey: 'AIzaSyBs1_rlmYJ19O9ZiiUyvnZ27pfmVC-uw9k',
@@ -37,8 +39,10 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />} >
         <Route index element={<Home />} />
+        <Route path='about' element={<About />} />
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<Signup />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
       <Route path="/admin" element={<ManageLayout />} >
         <Route index element={<Dashboard />} />
