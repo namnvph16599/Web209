@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './index.css';
 import {
   Routes,
   Route,
@@ -13,12 +14,12 @@ import Dashboard from "./pages/Manage/Dashboard";
 import Signup from "./pages/Signup";
 
 const config = {
-  // apiKey: 'AIzaSyBs1_rlmYJ19O9ZiiUyvnZ27pfmVC-uw9k',
-  // authDomain: 'react-sso-24f46.firebaseapp.com',
-  apiKey: process.env.REACT_APP_FISEBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FISEBASE_AUTH_DOMAIN,
+  apiKey: 'AIzaSyBs1_rlmYJ19O9ZiiUyvnZ27pfmVC-uw9k',
+  authDomain: 'react-sso-24f46.firebaseapp.com',
+  // apiKey: process.env.REACT_APP_FISEBASE_API_KEY,
+  // authDomain: process.env.REACT_APP_FISEBASE_AUTH_DOMAIN,
   // ...
-};  
+};
 firebase.initializeApp(config);
 
 function App() {
