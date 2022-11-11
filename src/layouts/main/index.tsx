@@ -27,7 +27,7 @@ const MainLayout = (props: Props) => {
                 <Header>
                     <HeaderMain />
                 </Header>
-                <Content className='p-6 bg-[#031b31]'><Outlet /></Content>
+                <Content className='p-6 bg-[#031b31] h-full'><Outlet /></Content>
             </Layout>
         </Layout>
     )
