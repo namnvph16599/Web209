@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import firebase from 'firebase/compat/app';
 import 'antd/dist/antd.css';
-import MainLayout from "./layouts/MainLayout";
+import MainLayout from "./layouts/main";
 import ManageLayout from "./layouts/ManageLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
