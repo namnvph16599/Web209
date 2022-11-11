@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 import { Outlet } from 'react-router-dom'
 import SiderMain from './SiderMain';
+import HeaderMain from './HeaderMain';
 
 type Props = {}
 
@@ -21,10 +22,11 @@ const MainLayout = (props: Props) => {
                 }}
             >
                 <SiderMain />
-
             </Sider>
             <Layout>
-                <Header>Header</Header>
+                <Header>
+                    <HeaderMain />
+                </Header>
                 <Content><Outlet /></Content>
                 <Footer>Footer</Footer>
             </Layout>
