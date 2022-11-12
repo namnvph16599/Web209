@@ -1,9 +1,56 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import type { MenuProps } from 'antd';
+import { Dropdown } from 'antd';
+import { getAuth, signOut } from "firebase/auth";
+import { saveUser } from '../slices/auth';
 
 type Props = {}
 
 const NavbarUser = (props: Props) => {
+    const user = useSelector(state => state.auth.user)
+    const dispatch = useDispatch()
+    const auth = getAuth()
+    const logout = () => {
+        signOut(auth).then(() => {
+            dispatch(saveUser({ logged: false }));
+        }).catch((error) => {
+            console.log('error', error);
+        });
+    }
+    if (user.logged) {
+        const items: MenuProps['items'] = [
+        ];
+        return <Dropdown className="" menu={{ items }} dropdownRender={menu => (
+            <div>
+                <div className="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                    <div className="py-3 px-4">
+                        <span className="block text-sm text-gray-900 dark:text-white">{user.displayName}</span>
+                        <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{user.email}</span>
+                    </div>
+                    <ul className="py-1" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                        </li>
+                        <li>
+                            <Link onClick={logout} to="/" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        )} trigger={['click']}>
+            <div>
+                <button type="button" className=" text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <img className="w-8 h-8 rounded-full" src={user.photoURL} alt="user photo" />
+                </button>
+            </div>
+        </Dropdown>
+    }
+
     return (
         <div className="flex items-center">
             <div className="">

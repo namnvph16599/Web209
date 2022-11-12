@@ -14,6 +14,8 @@ import Dashboard from "./pages/Manage/Dashboard";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import { useDispatch } from "react-redux";
+import { saveUser } from "./slices/auth";
 
 const config = {
   apiKey: 'AIzaSyBs1_rlmYJ19O9ZiiUyvnZ27pfmVC-uw9k',
@@ -25,13 +27,18 @@ const config = {
 firebase.initializeApp(config);
 
 function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
-
-  // Listen to the Firebase Auth state and set the local state.
+  const dispatch = useDispatch();
   useEffect(() => {
-    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      console.log('user', user);
-      setIsSignedIn(!!user);
+    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async (user) => {
+      if (user !== null) {
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+        const uid = user.uid;
+        const tokenId = await user.getIdToken();
+        dispatch(saveUser({ displayName, email, photoURL, emailVerified, uid, tokenId, logged: true, loginWithGG: true }))
+      }
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
@@ -40,13 +47,13 @@ function App() {
       <Route path="/" element={<MainLayout />} >
         <Route index element={<Home />} />
         <Route path='about' element={<About />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<Signup />} />
-        <Route path='*' element={<NotFound />} />
       </Route>
+      <Route path='login' element={<Login />} />
+      <Route path='signup' element={<Signup />} />
       <Route path="/admin" element={<ManageLayout />} >
         <Route index element={<Dashboard />} />
       </Route>
+      <Route path='*' element={<NotFound />} />
     </Routes>
 
   )
