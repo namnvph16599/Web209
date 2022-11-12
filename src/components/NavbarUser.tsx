@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import type { MenuProps } from 'antd';
+import { MenuProps, Space } from 'antd';
 import { Dropdown } from 'antd';
 import { getAuth, signOut } from "firebase/auth";
 import { saveUser } from '../slices/auth';
@@ -22,8 +22,8 @@ const NavbarUser = (props: Props) => {
     if (user.logged) {
         const items: MenuProps['items'] = [
         ];
-        return <Dropdown className="" menu={{ items }} dropdownRender={menu => (
-            <div>
+        return <Dropdown className="relative" menu={{ items }} dropdownRender={menu => (
+            <div className="dropdown-content absolute top-[-30px] right-0">
                 <div className="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                     <div className="py-3 px-4">
                         <span className="block text-sm text-gray-900 dark:text-white">{user.displayName}</span>
@@ -43,11 +43,11 @@ const NavbarUser = (props: Props) => {
                 </div>
             </div>
         )} trigger={['click']}>
-            <div>
-                <button type="button" className=" text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                    <img className="w-8 h-8 rounded-full" src={user.photoURL} alt="user photo" />
+            <Space className='relative'>
+                <button type="button" className=" text-sm rounded-full dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <img className="w-10 h-10 mt-4 rounded-full" src={user.photoURL} alt="user photo" />
                 </button>
-            </div>
+            </Space>
         </Dropdown>
     }
 
