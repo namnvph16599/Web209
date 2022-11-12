@@ -1,17 +1,16 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input, Row } from "antd";
-import './signup.css';
+import './signup.css'
+import { Link } from 'react-router-dom';
 type Props = {}
 
 const Signup = (props: Props) => {
     return (
         <div className="main-signin">
-            <div className="main-signin-content-login">
-                <h2 className="main-signin-content__title-welcome">
-                    Welcome To TripFinder
-                </h2>
+            <div className="main-signin-content">
+                <h2 className="main-signin-content__title-welcome">Welcome</h2>
                 <h3 className="main-signin-content__title-required">
-                    Please Register for your account
+                    Please log into your account
                 </h3>
 
                 <Form
@@ -20,20 +19,19 @@ const Signup = (props: Props) => {
                     initialValues={{
                         remember: true,
                     }}
+                    layout={'vertical'}
                 >
                     <Form.Item
-                        name={["user"]}
-                        label="Username"
-                        rules={[{ type: "text" }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name={["email"]}
+                        name={["user", "email"]}
                         label="Email"
-                        rules={[{ type: "email" }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your email!",
+                            },
+                        ]}
                     >
-                        <Input />
+                        <Input placeholder='Email' />
                     </Form.Item>
                     <Form.Item
                         name="password"
@@ -44,18 +42,6 @@ const Signup = (props: Props) => {
                             },
                         ]}
                         label="Password"
-                    >
-                        <Input type="password" placeholder="Password" />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input your Password!",
-                            },
-                        ]}
-                        label="Confirm password"
                     >
                         <Input type="password" placeholder="Password" />
                     </Form.Item>
@@ -71,9 +57,9 @@ const Signup = (props: Props) => {
                                 <Checkbox>Remember me</Checkbox>
                             </Form.Item>
 
-                            <Form.Item name="remember" valuePropName="checked" noStyle>
-                                <Checkbox>I agree with terms and conditions</Checkbox>
-                            </Form.Item>
+                            <a className="text-[#2563eb] font-bold" href="">
+                                Forgot password
+                            </a>
                         </Row>
                     </Form.Item>
 
@@ -81,43 +67,21 @@ const Signup = (props: Props) => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button"
+                            className="login-form-button bg-[#2563eb]"
                         >
-                            Log in
+                            Sign up
                         </Button>
                     </Form.Item>
                 </Form>
-                <div
-                    className="ant-divider ant-divider-horizontal ant-divider-with-text ant-divider-with-text-center"
-                    role="separator"
-                >
-                    <span className="ant-divider-inner-text">Or Register Up With</span>
-                </div>
-                <div className="flex-btn">
-                    <div>
-                        <Button className="btn-login-or btn-facebook">Facebook</Button>
-                    </div>
-                    <div>
-                        <Button className="btn-login-or btn-github">Github</Button>
-                    </div>
-                </div>
-                <div className="flex-btn">
-                    <div>
-                        <Button className="btn-login-or btn-firebase">Firebase</Button>
-                    </div>
-                    <div>
-                        <Button className="btn-login-or btn-google">Google+</Button>
-                    </div>
-                </div>
 
-                <p className="main-signin-content__acount">
-                    Already Have an Account!<a href="/signup">Login</a>
+                <p className="block text-center text-[#777777] mt-8 font-bold">
+                    You have an Account ? <Link to="/login" className="text-[#2563eb] font-bold">Login</Link>
                 </p>
             </div>
             <div className="main-signin-bg">
                 <div className="main-signin-image"></div>
             </div>
-        </div>
+        </div >
     );
 }
 

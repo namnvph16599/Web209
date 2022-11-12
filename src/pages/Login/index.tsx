@@ -4,15 +4,16 @@ import './login.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { Link } from 'react-router-dom';
 type Props = {}
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
-    signInFlow: 'redirect',
+    signInFlow: 'popup',
     // We will display Google and Facebook as auth providers.
     signInSuccessUrl: '/',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID
+        // firebase.auth.FacebookAuthProvider.PROVIDER_ID
     ],
     // callbacks: {
     //     // Avoid redirects after sign-in.
@@ -35,13 +36,19 @@ const Login = (props: Props) => {
                     initialValues={{
                         remember: true,
                     }}
+                    layout={'vertical'}
                 >
                     <Form.Item
                         name={["user", "email"]}
                         label="Email"
-                        rules={[{ type: "email" }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your email!",
+                            },
+                        ]}
                     >
-                        <Input />
+                        <Input placeholder='Email' />
                     </Form.Item>
                     <Form.Item
                         name="password"
@@ -67,7 +74,7 @@ const Login = (props: Props) => {
                                 <Checkbox>Remember me</Checkbox>
                             </Form.Item>
 
-                            <a className="login-form-forgot" href="">
+                            <a className="text-[#2563eb] font-bold" href="">
                                 Forgot password
                             </a>
                         </Row>
@@ -77,7 +84,7 @@ const Login = (props: Props) => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button"
+                            className="login-form-button bg-[#2563eb]"
                         >
                             Log in
                         </Button>
@@ -91,14 +98,14 @@ const Login = (props: Props) => {
                 </div>
                 <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
 
-                <p className="main-signin-content__acount">
-                    Don't Have an Account?<a href="/signup">Registration</a>
+                <p className="block text-center text-[#777777] mt-8 font-bold">
+                    Don't Have an Account ? <Link to="/signup" className="text-[#2563eb] font-bold">Registration</Link>
                 </p>
             </div>
             <div className="main-signin-bg">
                 <div className="main-signin-image"></div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -15,7 +15,7 @@ button:hover {
 }
 .main-signin-content {
   flex: 40%;
-  padding: 130px;
+  padding: 50px 50px 0;
 }
 .main-signin-bg {
   flex: 60%;
@@ -23,10 +23,10 @@ button:hover {
 .main-signin-image {
   flex: 60%;
   width: 100%;
-  background-image: url(https://tripfinder-redq.firebaseapp.com/static/media/login-page-bg.eea21cfc.jpg);
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShsYMUiXf0PMYYbMzi7DDy-Q0qDeWnPE8b5A&usqp=CAU);
   background-position: center center;
   height: 100vh;
-  background-size: cover;
+  /* background-size: cover; */
   position: fixed;
   width: 57%;
   top: 0px;
@@ -38,7 +38,7 @@ button:hover {
   line-height: 48px;
   font-weight: 700;
   margin-bottom: 0px;
-  margin-top: 58px;
+  margin-top: 30px;
 }
 .main-signin-content__title-required {
   color: rgb(119, 119, 119);
@@ -121,8 +121,8 @@ button:hover {
   height: 57px;
   font-size: 17px;
   font-weight: 700;
-  border-color: rgb(0, 132, 137);
-  background-color: rgb(0, 132, 137);
+  border-color: #2563eb;
+  background-color: #2563eb;
   width: 100%;
   color: #fff;
   margin: 40px 0;
@@ -174,9 +174,6 @@ button:hover {
   justify-content: space-between;
   flex-wrap: nowrap;
   align-items: center;
-}
-.flex-btn > div {
-  width: 48%;
 }
 .btn-login-or {
   width: 100%;
