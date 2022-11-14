@@ -1,10 +1,13 @@
-import React from 'react'
-import { Button, Checkbox, Form, Input, Row } from "antd";
+import React, { useEffect } from 'react'
+import { Button, Checkbox, Form, Input, notification, Row } from "antd";
 import './login.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IAuthLogin } from '../../interfaces/auth';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { loginAsync, refreshError } from '../../slices/auth';
 type Props = {}
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -20,7 +23,34 @@ const uiConfig = {
     //     signInSuccessWithAuthResult: () => false,
     // },
 };
+const loginFailed = (description: string) => {
+    notification.error({
+        message: 'Login failed!',
+        description,
+    });
+};
 const Login = (props: Props) => {
+    const dispatch = useAppDispatch();
+    const error = useAppSelector(state => state.auth.error)
+    const message = useAppSelector(state => state.auth.message)
+    const logged = useAppSelector(state => state.auth.user.logged)
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (error && message) {
+            loginFailed(message)
+            dispatch(refreshError())
+            return
+        }
+    }, [error, message])
+    useEffect(() => {
+        if (logged) {
+            navigate('/')
+        }
+    }, [logged])
+
+    const onFinish = (values: IAuthLogin) => {
+        dispatch(loginAsync(values))
+    }
     return (
         <div className="main-signin">
             <div className="main-signin-content">
@@ -37,9 +67,10 @@ const Login = (props: Props) => {
                         remember: true,
                     }}
                     layout={'vertical'}
+                    onFinish={onFinish}
                 >
                     <Form.Item
-                        name={["user", "email"]}
+                        name="email"
                         label="Email"
                         rules={[
                             {

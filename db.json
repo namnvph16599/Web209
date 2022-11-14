@@ -1,3 +1,32 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "user@gmail.com",
+      "password": "$2a$10$I/3HXCAy7a9OY.romsvkbuA0TGi2jobEu9W5QnImAhrmLDk5J0a5q",
+      "displayName": "nam",
+      "role": 0,
+      "id": 1
+    },
+    {
+      "email": "user1@gmail.com",
+      "password": "$2a$10$sNgKSsjMPIsAlE5C.3A4WeuqN2vGT1I7AcKJICM90X8N1IPdCfIrO",
+      "displayName": "aaaaaa",
+      "role": 0,
+      "id": 2
+    },
+    {
+      "email": "use2r@gmail.com",
+      "password": "$2a$10$51M1O7aZ22.ljdwlv2QrquR8CfalwYnvQjOI5WC1AjUo32qA/g5ou",
+      "displayName": "ngo van nam",
+      "role": 0,
+      "id": 3
+    },
+    {
+      "email": "2222@gmail.com",
+      "password": "$2a$10$b1mnNmYASGvDZp38jOS39.qkChJJ3/oU.V/ndo9cLU5UqGsZkjU8m",
+      "displayName": "ngo van nam",
+      "role": 0,
+      "id": 4
+    }
+  ]
 }

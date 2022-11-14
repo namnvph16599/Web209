@@ -1,10 +1,41 @@
-import React from 'react'
-import { Button, Checkbox, Form, Input, Row } from "antd";
+import React, { useEffect } from 'react'
+import { Button, Form, Input, notification } from "antd";
 import './signup.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { refreshError, registerAsync } from '../../slices/auth';
+import { IAuthRegister, NotificationType } from '../../interfaces/auth'
 type Props = {}
 
+const registerFailed = (description: string) => {
+    notification.error({
+        message: 'Register failed!',
+        description,
+    });
+};
+
 const Signup = (props: Props) => {
+    const dispatch = useAppDispatch();
+    const error = useAppSelector(state => state.auth.error)
+    const message = useAppSelector(state => state.auth.message)
+    const logged = useAppSelector(state => state.auth.user.logged)
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (error && message) {
+            registerFailed(message)
+            dispatch(refreshError())
+            return
+        }
+    }, [error, message])
+    useEffect(() => {
+        if (logged) {
+            navigate('/')
+        }
+    }, [logged])
+
+    const onFinish = (values: IAuthRegister) => {
+        dispatch(registerAsync({ ...values, role: 0 }))
+    }
     return (
         <div className="main-signin">
             <div className="main-signin-content">
@@ -20,9 +51,22 @@ const Signup = (props: Props) => {
                         remember: true,
                     }}
                     layout={'vertical'}
+                    onFinish={onFinish}
                 >
                     <Form.Item
-                        name={["user", "email"]}
+                        name='displayName'
+                        label="Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your name!",
+                            },
+                        ]}
+                    >
+                        <Input placeholder='Name' />
+                    </Form.Item>
+                    <Form.Item
+                        name='email'
                         label="Email"
                         rules={[
                             {
@@ -45,24 +89,6 @@ const Signup = (props: Props) => {
                     >
                         <Input type="password" placeholder="Password" />
                     </Form.Item>
-                    <Form.Item>
-                        <Row
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Form.Item name="remember" valuePropName="checked" noStyle>
-                                <Checkbox>Remember me</Checkbox>
-                            </Form.Item>
-
-                            <a className="text-[#2563eb] font-bold" href="">
-                                Forgot password
-                            </a>
-                        </Row>
-                    </Form.Item>
-
                     <Form.Item>
                         <Button
                             type="primary"

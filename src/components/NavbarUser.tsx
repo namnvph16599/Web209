@@ -1,23 +1,28 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { MenuProps, Space } from 'antd';
 import { Dropdown } from 'antd';
 import { getAuth, signOut } from "firebase/auth";
-import { saveUser } from '../slices/auth';
+import { refreshUser, saveUser } from '../slices/auth';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { IAuthSave } from '../interfaces/auth';
 
 type Props = {}
 
 const NavbarUser = (props: Props) => {
-    const user = useSelector(state => state.auth.user)
-    const dispatch = useDispatch()
+    const user: IAuthSave = useAppSelector(state => state.auth.user)
+    const dispatch = useAppDispatch()
     const auth = getAuth()
     const logout = () => {
-        signOut(auth).then(() => {
-            dispatch(saveUser({ logged: false }));
-        }).catch((error) => {
-            console.log('error', error);
-        });
+        const loginWithGG = user.loginWithGG;
+        if (loginWithGG) {
+            signOut(auth).then(() => {
+                dispatch(saveUser({ logged: false }));
+            }).catch((error) => {
+                console.log('error', error);
+            });
+        }
+        dispatch(refreshUser())
     }
     if (user.logged) {
         const items: MenuProps['items'] = [

@@ -16,6 +16,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import { useDispatch } from "react-redux";
 import { saveUser } from "./slices/auth";
+import { IAuthSave } from './interfaces/auth'
 
 const config = {
   apiKey: 'AIzaSyBs1_rlmYJ19O9ZiiUyvnZ27pfmVC-uw9k',
@@ -37,7 +38,7 @@ function App() {
         const emailVerified = user.emailVerified;
         const uid = user.uid;
         const tokenId = await user.getIdToken();
-        dispatch(saveUser({ displayName, email, photoURL, emailVerified, uid, tokenId, logged: true, loginWithGG: true }))
+        dispatch(saveUser({ displayName, email, photoURL, emailVerified, id: uid, tokenId, logged: true, loginWithGG: true, role: 0 }))
       }
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
