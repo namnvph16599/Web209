@@ -10,20 +10,22 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Manage/Dashboard";
 import Signup from "./pages/Signup";
-import Couter from "./pages/Couter";
+import Products from "./pages/Products";
+import Detail from "./pages/Detail";
+import ProductUpdate from "./pages/ProductUpdate";
+import Add from "./pages/Add";
 function App() {
   return (
-    // <Routes>
-    //   <Route path="/" element={<MainLayout />} >
-    //     <Route index element={<Home />} />
-    //     <Route path='login' element={<Login />} />
-    //     <Route path='signup' element={<Signup />} />
-    //   </Route>
-    //   <Route path="/admin" element={<ManageLayout />} >
-    //     <Route index element={<Dashboard />} />
-    //   </Route>
-    // </Routes>
-    <Couter />
+    <Routes>
+      {/* <Route path="/" element={<MainLayout />} > */}
+      <Route index element={<Products />} />
+      <Route path='add' element={<Add />} />
+      <Route path='edit/:id' element={<ProductUpdate />} />
+      {/* </Route> */}
+      // <Route path="/admin" element={<ManageLayout />} >
+        {/* <Route index element={<Dashboard />} /> */}
+      // </Route>
+    </Routes >
 
   )
 }
