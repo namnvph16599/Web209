@@ -1,69 +1,18 @@
 import React from 'react'
-import { Button, Form, Input, notification } from "antd";
+import { useParams } from 'react-router-dom'
+import { useGetProductQuery } from '../slicesApi/products';
+
 type Props = {}
 
 const Detail = (props: Props) => {
-    const onFinish = (values: any) => {
+    const { id } = useParams();
+    console.log('111', id);
 
-    }
+    const { data: product, isLoading, error } = useGetProductQuery(id as string);
+    if (isLoading) return <div>Loadding</div>
+    if (error) return <div>error</div>
     return (
-        <div>
-            <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                    remember: true,
-                }}
-                layout={'vertical'}
-                onFinish={onFinish}
-            >
-                <Form.Item
-                    name='displayName'
-                    label="Name"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your name!",
-                        },
-                    ]}
-                >
-                    <Input placeholder='Name' />
-                </Form.Item>
-                <Form.Item
-                    name='email'
-                    label="Email"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your email!",
-                        },
-                    ]}
-                >
-                    <Input placeholder='Email' />
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your Password!",
-                        },
-                    ]}
-                    label="Password"
-                >
-                    <Input type="password" placeholder="Password" />
-                </Form.Item>
-                <Form.Item>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="login-form-button bg-[#2563eb]"
-                    >
-                        Sign up
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+        <div>{product.title}</div>
     )
 }
 
